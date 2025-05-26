@@ -1,0 +1,32 @@
+/******************************************************************************
+
+RECURSIVE METHOD FOR MATRIX CHAIN MULTIPLICATION.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <limits.h>
+int MIN(int a ,int b)
+{
+    return a<b?a:b;
+}
+int mcm(int p[],int i,int j)
+{
+    int res = INT_MAX;
+    if(i == j)return 0;
+    int k = 0;
+    for(k = i;k<j;k++)
+    {
+       res  = MIN(res,mcm(p,i,k)+mcm(p,k+1,j)+p[i-1]*p[k]*p[j]);
+       
+    }
+    
+    return res;
+    
+}
+int main()
+{
+    int p[]  = {2,10,50,40,3};
+    int n = sizeof(p)/sizeof(int);
+    int res = mcm(p,1,4);
+    printf("%d",res);
+}

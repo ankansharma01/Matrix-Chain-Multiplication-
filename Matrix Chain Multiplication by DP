@@ -1,0 +1,46 @@
+/******************************************************************************
+
+Matrix Chain Multiplication  by Dynamic Programming  O(n^3)
+
+*******************************************************************************/
+#include <stdio.h>
+#include <limits.h>
+int MIN(int a ,int b)
+{
+    return a<b?a:b;
+}
+int matrix(int p[],int n)
+{ 
+    int i = 0,j=0;
+    int mcm [n+1][n+1];
+    int gap = 0;
+    for(int i = 1;i<=n;i++)
+    {
+        mcm[i][i]=0;
+    }
+     
+    for(gap = 1;gap<n;gap++)
+    {
+        for(int i =1;i<=n-gap;i++)
+        {
+            int j = i+gap;
+            mcm[i][j]=INT_MAX;
+            for(int k = i;k<j;k++)
+            {
+                mcm[i][j]=MIN(mcm[i][j],mcm[i][k]+mcm[k+1][j]+p[i-1]*p[k]*p[j]);
+                
+            }
+        }
+    }
+    
+    
+    return mcm[1][n];
+    
+  }
+int main()
+{
+    int p[]  = {2,10,50,40,3};
+    int n = sizeof(p)/sizeof(int);
+    int res = matrix(p,n-1);
+    printf("%d",res);
+}
